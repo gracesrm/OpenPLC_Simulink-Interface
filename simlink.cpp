@@ -525,7 +525,7 @@ void *exchangeDataWithPLC(void *args)
 	int data_len;
 	socklen_t cli_len;
 	struct plcData *localBuffer = (struct plcData *)malloc(sizeof(struct plcData));
-	char *hostaddr;
+	char *hostaddr = stations_info[stationNumber].ip;
 
 	//Create TCP Socket
 	socket_fd = socket(AF_INET, SOCK_DGRAM, 0);
@@ -536,7 +536,7 @@ void *exchangeDataWithPLC(void *args)
 	}
 
 	//Initialize Server Structures
-	server = gethostbyname(stations_info[stationNumber].ip);
+	server = gethostbyname(hostaddr);
 	if (server == NULL)
 	{
 		printf("Error locating host %s\n", hostaddr);
